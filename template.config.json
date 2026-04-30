@@ -1,0 +1,10 @@
+{
+  "productName": "Tyre Launch",
+  "welcomeMessage": "Tyre Launch",
+  "identifier": "com.saqlain.tyrelaunch",
+  "npmPackageName": "tyre-launch",
+  "rustPackageName": "tyre-launch",
+  "rustBinaryName": "tyre-launch",
+  "rustLibraryName": "tyre_launch",
+  "version": "0.1.0"
+}

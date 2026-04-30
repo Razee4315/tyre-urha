@@ -1,19 +1,39 @@
 {
-  "name": "tyre-urha",
-  "version": "0.1.0",
+  "name": "tyre-launch",
   "private": true,
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "build": "tsc && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "tauri": "tauri",
+    "android:prepare": "cargo fetch --manifest-path ./src-tauri/Cargo.toml",
+    "android:init": "tauri android init",
+    "android:dev": "tauri android dev",
+    "android:build": "tauri android build",
+    "android:signing": "node ./scripts/setup-android-signing.mjs",
+    "doctor": "node ./scripts/doctor.mjs",
+    "bootstrap": "node ./scripts/bootstrap.mjs",
+    "template:rename": "node ./scripts/rename-template.mjs",
+    "branding:generate": "node ./scripts/generate-branding.mjs",
+    "branding:replace": "node ./scripts/replace-branding.mjs",
+    "template:sync": "node ./scripts/sync-template-config.mjs",
+    "postinstall": "npm run template:sync"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "latest",
-    "vite": "latest",
-    "typescript": "latest",
-    "three": "latest",
-    "cannon-es": "latest"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "^0.169.0",
+    "cannon-es": "^0.20.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.8.4",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@types/three": "^0.169.0",
+    "@vitejs/plugin-react": "^4.4.1",
+    "typescript": "^5.8.3",
+    "vite": "^5.4.19"
+  }
 }

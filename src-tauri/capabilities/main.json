@@ -1,0 +1,8 @@
+{
+  "$schema": "../gen/schemas/capabilities.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "context": "main",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}

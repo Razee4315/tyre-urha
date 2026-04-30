@@ -4,9 +4,9 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-License-Identifier: MIT
 
-package com.saqlain.tauritemplate
+package com.saqlain.tyrelaunch
 
-import com.saqlain.tauritemplate.RustWebView
+import com.saqlain.tyrelaunch.RustWebView
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
@@ -127,7 +127,7 @@ abstract class WryActivity : AppCompatActivity() {
 
     companion object {
         init {
-            System.loadLibrary("saqlains_tauri_template")
+            System.loadLibrary("tyre_launch")
         }
     }
 

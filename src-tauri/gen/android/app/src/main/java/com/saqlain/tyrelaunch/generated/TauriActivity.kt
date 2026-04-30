@@ -4,7 +4,7 @@
 
 /* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY!! */
 
-package com.saqlain.tauritemplate
+package com.saqlain.tyrelaunch
 
 import android.content.Intent
 import android.content.res.Configuration

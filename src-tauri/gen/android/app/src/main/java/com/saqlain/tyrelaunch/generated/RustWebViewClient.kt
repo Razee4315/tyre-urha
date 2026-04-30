@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-License-Identifier: MIT
 
-package com.saqlain.tauritemplate
+package com.saqlain.tyrelaunch
 
 import android.net.Uri
 import android.webkit.*
@@ -92,7 +92,7 @@ class RustWebViewClient(context: Context): WebViewClient() {
 
     companion object {
         init {
-            System.loadLibrary("saqlains_tauri_template")
+            System.loadLibrary("tyre_launch")
         }
     }
 

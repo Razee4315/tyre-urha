@@ -4,25 +4,25 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-License-Identifier: MIT
 
--keep class com.saqlain.tauritemplate.* {
+-keep class com.saqlain.tyrelaunch.* {
   native <methods>;
 }
 
--keep class com.saqlain.tauritemplate.WryActivity {
+-keep class com.saqlain.tyrelaunch.WryActivity {
   public <init>(...);
 
-  void setWebView(com.saqlain.tauritemplate.RustWebView);
+  void setWebView(com.saqlain.tyrelaunch.RustWebView);
   java.lang.Class getAppClass(...);
   java.lang.String getVersion();
 }
 
--keep class com.saqlain.tauritemplate.Ipc {
+-keep class com.saqlain.tyrelaunch.Ipc {
   public <init>(...);
 
   @android.webkit.JavascriptInterface public <methods>;
 }
 
--keep class com.saqlain.tauritemplate.RustWebView {
+-keep class com.saqlain.tyrelaunch.RustWebView {
   public <init>(...);
 
   void loadUrlMainThread(...);
@@ -30,6 +30,6 @@
   void evalScript(...);
 }
 
--keep class com.saqlain.tauritemplate.RustWebChromeClient,com.saqlain.tauritemplate.RustWebViewClient {
+-keep class com.saqlain.tyrelaunch.RustWebChromeClient,com.saqlain.tyrelaunch.RustWebViewClient {
   public <init>(...);
 }

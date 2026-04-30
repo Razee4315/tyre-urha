@@ -1,3 +1,3 @@
-package com.saqlain.tauritemplate
+package com.saqlain.tyrelaunch
 
 class MainActivity : TauriActivity()

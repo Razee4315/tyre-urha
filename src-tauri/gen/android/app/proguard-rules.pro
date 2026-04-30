@@ -1,8 +1,8 @@
 # Tauri template ProGuard rules
 
 # Keep all app classes
--keep class com.saqlain.tauritemplate.** { *; }
--keepclassmembers class com.saqlain.tauritemplate.** { *; }
+-keep class com.saqlain.tyrelaunch.** { *; }
+-keepclassmembers class com.saqlain.tyrelaunch.** { *; }
 
 # Keep Tauri framework classes (critical — IPC bridge will break without this)
 -keep class app.tauri.** { *; }

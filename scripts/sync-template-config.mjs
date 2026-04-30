@@ -43,7 +43,7 @@ cargoToml = cargoToml.replace(
   `[lib]\nname = "${config.rustLibraryName}"`
 );
 cargoToml = cargoToml.replace(
-  /\[\[bin\]\]\nname = ".*"\npath = "src\/main.rs"/m,
+  /\[\[bin\]\]\r?\nname = ".*"\r?\npath = "src\/main.rs"/m,
   `[[bin]]\nname = "${config.rustBinaryName}"\npath = "src/main.rs"`
 );
 fs.writeFileSync(cargoTomlPath, cargoToml);

@@ -6,7 +6,7 @@
 
 @file:Suppress("unused")
 
-package com.saqlain.tauritemplate
+package com.saqlain.tyrelaunch
 
 import android.webkit.*
 
@@ -23,7 +23,7 @@ class Ipc(val webViewClient: RustWebViewClient) {
 
     companion object {
         init {
-            System.loadLibrary("saqlains_tauri_template")
+            System.loadLibrary("tyre_launch")
         }
     }
 

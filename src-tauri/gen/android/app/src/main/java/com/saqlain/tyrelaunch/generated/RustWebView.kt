@@ -6,7 +6,7 @@
 
 @file:Suppress("unused", "SetJavaScriptEnabled")
 
-package com.saqlain.tauritemplate
+package com.saqlain.tyrelaunch
 
 import android.annotation.SuppressLint
 import android.webkit.*

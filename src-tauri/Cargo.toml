@@ -1,6 +1,6 @@
 [package]
-name = "saqlains-tauri-template"
-version = "0.1.2"
+name = "tyre-launch"
+version = "0.1.0"
 edition = "2021"
 rust-version = "1.77"
 
@@ -21,11 +21,11 @@ default = ["custom-protocol"]
 custom-protocol = ["tauri/custom-protocol"]
 
 [lib]
-name = "saqlains_tauri_template"
+name = "tyre_launch"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [[bin]]
-name = "saqlains-tauri-template"
+name = "tyre-launch"
 path = "src/main.rs"
 
 [workspace]

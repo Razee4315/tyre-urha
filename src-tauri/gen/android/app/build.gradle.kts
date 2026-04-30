@@ -23,10 +23,10 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     compileSdk = 36
-    namespace = "com.saqlain.tauritemplate"
+    namespace = "com.saqlain.tyrelaunch"
     defaultConfig {
         manifestPlaceholders["usesCleartextTraffic"] = "false"
-        applicationId = "com.saqlain.tauritemplate"
+        applicationId = "com.saqlain.tyrelaunch"
         minSdk = 24
         targetSdk = 36
         versionCode = tauriProperties.getProperty("tauri.android.versionCode", "1").toInt()

@@ -83,6 +83,9 @@ export class Game {
   private wobbleEuler = new THREE.Euler(0, 0, 0, "XYZ");
   private hudTick = 0;
   private hudIntervalId: number | null = null;
+  private fpsSmoothed = 60;
+  private currentPixelRatio = 1;
+  private adaptCooldown = 0;
 
   constructor(container: HTMLElement, input: GameInputState, opts: GameOptions, events: GameEvents) {
     this.container = container;
@@ -104,8 +107,16 @@ export class Game {
     const rect = container.getBoundingClientRect();
     this.camera = new THREE.PerspectiveCamera(68, Math.max(1, rect.width) / Math.max(1, rect.height), 0.1, 220);
 
-    this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    // Adaptive renderer: start at the device pixel ratio capped at 1.5 so
+    // mid-range Androids don't burn fillrate. We re-tune dynamically based
+    // on measured FPS during the game loop.
+    this.renderer = new THREE.WebGLRenderer({
+      canvas: this.canvas,
+      antialias: true,
+      powerPreference: "high-performance",
+    });
+    this.currentPixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+    this.renderer.setPixelRatio(this.currentPixelRatio);
     this.renderer.setSize(rect.width, rect.height, false);
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -278,6 +289,25 @@ export class Game {
 
     this.renderer.render(this.scene, this.camera);
     this.hudTick += dt;
+
+    // Adaptive pixel ratio — drop quality if we slip below 50 FPS, restore
+    // when we comfortably exceed 58 FPS. Cooldown so we never thrash.
+    if (dt > 0) {
+      const fps = 1 / dt;
+      this.fpsSmoothed = this.fpsSmoothed * 0.9 + fps * 0.1;
+      this.adaptCooldown -= dt;
+      if (this.adaptCooldown <= 0) {
+        if (this.fpsSmoothed < 50 && this.currentPixelRatio > 0.75) {
+          this.currentPixelRatio = Math.max(0.75, this.currentPixelRatio - 0.25);
+          this.renderer.setPixelRatio(this.currentPixelRatio);
+          this.adaptCooldown = 2;
+        } else if (this.fpsSmoothed > 58 && this.currentPixelRatio < Math.min(window.devicePixelRatio || 1, 1.5) - 0.05) {
+          this.currentPixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+          this.renderer.setPixelRatio(this.currentPixelRatio);
+          this.adaptCooldown = 4;
+        }
+      }
+    }
   }
 
   private consumeInput(): void {

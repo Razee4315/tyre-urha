@@ -128,6 +128,26 @@
   gap: 28px;
 }
 
+@media (orientation: landscape) and (max-height: 540px) {
+  .menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    gap: 18px;
+  }
+  .menu .menu-header {
+    align-self: center;
+  }
+  .menu .menu-stats {
+    align-self: center;
+  }
+  .menu .menu-buttons {
+    align-self: center;
+    width: min(280px, 36vw);
+  }
+}
+
 .menu-header {
   text-align: center;
   margin-top: 8px;

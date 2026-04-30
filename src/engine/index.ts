@@ -86,6 +86,7 @@ export class Game {
   private fpsSmoothed = 60;
   private currentPixelRatio = 1;
   private adaptCooldown = 0;
+  private disposed = false;
 
   constructor(container: HTMLElement, input: GameInputState, opts: GameOptions, events: GameEvents) {
     this.container = container;
@@ -181,7 +182,7 @@ export class Game {
 
     if (opts.sfxOn) {
       void audio.unlock().then(() => {
-        if (!this.opts.sfxOn || this.paused) return;
+        if (this.disposed || !this.opts.sfxOn || this.paused) return;
         this.engineHandle = audio.startEngine();
         this.engineHandle.setCharge(this.tyreState === "loaded" ? this.rollerCharge : 0);
       });
@@ -241,6 +242,7 @@ export class Game {
   }
 
   dispose(): void {
+    this.disposed = true;
     if (this.rafId !== null) cancelAnimationFrame(this.rafId);
     this.rafId = null;
     if (this.hudIntervalId !== null) clearInterval(this.hudIntervalId);

@@ -29,6 +29,7 @@ export function Game({ settings, onPause, onWin, stats, paused = false }: Props)
     hit: false,
   });
   const [toast, setToast] = useState<string | null>(null);
+  const [showHelp, setShowHelp] = useState(true);
 
   // Keep stats in a ref so the win callback always sees the latest values
   // without forcing a remount of the engine.
@@ -88,6 +89,11 @@ export function Game({ settings, onPause, onWin, stats, paused = false }: Props)
     else engineRef.current.resume();
   }, [paused]);
 
+  useEffect(() => {
+    const t = window.setTimeout(() => setShowHelp(false), 5500);
+    return () => window.clearTimeout(t);
+  }, []);
+
   // Pause when the user switches tabs / app goes background
   useEffect(() => {
     const handler = () => {
@@ -137,6 +143,13 @@ export function Game({ settings, onPause, onWin, stats, paused = false }: Props)
             <div className="fill" style={{ width: `${meterPercent}%` }} />
           </div>
         </div>
+
+        {showHelp ? (
+          <div className="help-hint">
+            <b>How to play</b>
+            Use the joystick to walk · drag the right side to look · tap Pick to grab the tyre · tap Place at the rollers · tap Release when charged
+          </div>
+        ) : null}
 
         {toast ? <div className="toast">{toast}</div> : null}
 

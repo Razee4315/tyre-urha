@@ -183,6 +183,16 @@
   border-color: color-mix(in oklab, var(--accent-2) 70%, #fff);
 }
 
+.action-btn.release:not([disabled]) {
+  animation: release-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes release-pulse {
+  0%   { box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4), 0 0 0 0 color-mix(in oklab, var(--accent-2) 60%, transparent); }
+  50%  { box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4), 0 0 0 14px transparent; }
+  100% { box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4), 0 0 0 0 transparent; }
+}
+
 .charge-ring {
   position: absolute;
   inset: -6px;
@@ -212,6 +222,41 @@
   stroke-dashoffset: 1;
   transition: stroke-dashoffset 90ms linear;
   filter: drop-shadow(0 0 4px var(--accent));
+}
+
+.help-hint {
+  position: absolute;
+  top: calc(50% - 80px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 14px 20px;
+  background: var(--ui-bg);
+  border: 1px solid var(--ui-stroke);
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  max-width: 80%;
+  line-height: 1.45;
+  animation: help-fade 5.5s ease forwards;
+}
+
+.help-hint b {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  opacity: 0.7;
+}
+
+@keyframes help-fade {
+  0%   { opacity: 0; transform: translate(-50%, -56%); }
+  10%  { opacity: 1; transform: translate(-50%, -50%); }
+  88%  { opacity: 1; transform: translate(-50%, -50%); }
+  100% { opacity: 0; transform: translate(-50%, -50%); }
 }
 
 .toast {

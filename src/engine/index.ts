@@ -180,8 +180,11 @@ export class Game {
     window.addEventListener("resize", this.onResize);
 
     if (opts.sfxOn) {
-      this.engineHandle = audio.startEngine();
-      this.engineHandle.setCharge(0);
+      void audio.unlock().then(() => {
+        if (!this.opts.sfxOn || this.paused) return;
+        this.engineHandle = audio.startEngine();
+        this.engineHandle.setCharge(this.tyreState === "loaded" ? this.rollerCharge : 0);
+      });
     }
 
     // Throttle HUD react notifications to 15 Hz

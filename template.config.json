@@ -6,5 +6,5 @@
   "rustPackageName": "tyre-launch",
   "rustBinaryName": "tyre-launch",
   "rustLibraryName": "tyre_launch",
-  "version": "0.1.2"
+  "version": "0.1.3"
 }

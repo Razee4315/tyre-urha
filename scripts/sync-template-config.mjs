@@ -48,6 +48,18 @@ cargoToml = cargoToml.replace(
 );
 fs.writeFileSync(cargoTomlPath, cargoToml);
 
+// main.rs delegates to the Rust library; rewrite the call site so the
+// library name stays in lockstep with Cargo.toml's [lib] entry.
+const mainRsPath = path.join(root, "src-tauri", "src", "main.rs");
+if (fs.existsSync(mainRsPath)) {
+  let mainRs = fs.readFileSync(mainRsPath, "utf8");
+  mainRs = mainRs.replace(
+    /^\s*[A-Za-z_][A-Za-z0-9_]*::run\(\)/m,
+    `    ${config.rustLibraryName}::run()`
+  );
+  fs.writeFileSync(mainRsPath, mainRs);
+}
+
 const indexHtmlPath = path.join(root, "index.html");
 let indexHtml = fs.readFileSync(indexHtmlPath, "utf8");
 indexHtml = indexHtml.replace(/<title>.*<\/title>/, `<title>${config.productName}</title>`);

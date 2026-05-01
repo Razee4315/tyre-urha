@@ -5,8 +5,7 @@ export type Screen =
   | "settings"
   | "themes"
   | "play"
-  | "pause"
-  | "win";
+  | "pause";
 
 export type Difficulty = "easy" | "normal" | "hard";
 

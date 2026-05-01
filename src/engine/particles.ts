@@ -223,7 +223,7 @@ export function buildChimneySmoke(scene: THREE.Scene, origin: THREE.Vector3): Ch
 }
 
 export function buildTowerConfetti(scene: THREE.Scene): Confetti {
-  const maxCount = 160;
+  const maxCount = 240;
   const geometry = new THREE.BoxGeometry(0.072, 0.1, 0.02);
   const material = new THREE.MeshBasicMaterial({
     transparent: true,

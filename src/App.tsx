@@ -6,7 +6,6 @@ import { Settings as SettingsScreen } from "./screens/Settings";
 import { Themes } from "./screens/Themes";
 import { Game } from "./screens/Game";
 import { Pause } from "./screens/Pause";
-import { Win } from "./screens/Win";
 import { applyThemeCssVars } from "./lib/themes";
 import { loadSettings, loadStats, saveSettings, saveStats } from "./lib/storage";
 import type { Screen, Settings, Stats } from "./lib/types";
@@ -16,8 +15,6 @@ export default function App() {
   const [screen, setScreen] = useState<Screen>("splash");
   const [settings, setSettings] = useState<Settings>(() => loadSettings());
   const [stats, setStats] = useState<Stats>(() => loadStats());
-  const [winSpeed, setWinSpeed] = useState(0);
-
   useEffect(() => {
     applyThemeCssVars(settings.themeId);
   }, [settings.themeId]);
@@ -34,7 +31,7 @@ export default function App() {
     const onPop = () => {
       setScreen((s) => {
         if (s === "play") return "pause";
-        if (s === "settings" || s === "themes" || s === "pause" || s === "win") return "menu";
+        if (s === "settings" || s === "themes" || s === "pause") return "menu";
         return s;
       });
     };
@@ -49,17 +46,17 @@ export default function App() {
 
   const handleLoadingDone = useCallback(() => setScreen("play"), []);
 
-  const handleWin = useCallback((speed: number, nextStats: Stats) => {
-    setWinSpeed(speed);
+  // After every successful hit: just bank the stats; the engine continues
+  // running so the player can keep launching tyres without interruption.
+  const handleWin = useCallback((_speed: number, nextStats: Stats) => {
     setStats(nextStats);
-    setScreen("win");
   }, []);
 
   const handlePause = useCallback(() => setScreen("pause"), []);
   const handleResume = useCallback(() => setScreen("play"), []);
   const handleMenu = useCallback(() => setScreen("menu"), []);
 
-  const inGame = screen === "play" || screen === "pause" || screen === "win";
+  const inGame = screen === "play" || screen === "pause";
 
   return (
     <>
@@ -100,14 +97,6 @@ export default function App() {
         />
       ) : null}
       {screen === "pause" ? <Pause onResume={handleResume} onMenu={handleMenu} /> : null}
-      {screen === "win" ? (
-        <Win
-          speed={winSpeed}
-          best={stats.bestSpeed}
-          onAgain={() => setScreen("play")}
-          onMenu={handleMenu}
-        />
-      ) : null}
     </>
   );
 }

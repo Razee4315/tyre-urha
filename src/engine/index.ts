@@ -73,7 +73,10 @@ export class Game {
   private releaseSpeed = 0;
   private loadedTyreSlotX = 0.2;
   private launchDirection = new THREE.Vector3(0, 0, -1);
-  private carryOffset = new THREE.Vector3(0, -0.48, -1.55);
+  // Tyre is "rolled" in front of the player: dropped to ground height and
+  // pushed slightly out of the camera frustum so it doesn't dominate the
+  // FOV while carrying.
+  private carryOffset = new THREE.Vector3(0, -1.0, -1.4);
   private towerHit = false;
   private launchedRestTime = 0;
   private goalResetTimer = 0;
@@ -511,7 +514,16 @@ export class Game {
       const offset = this.carryOffset.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), this.player.yaw);
       const target = this.player.position.clone().add(offset);
       this.tyre.body.position.set(target.x, target.y, target.z);
-      this.tyre.body.quaternion.setFromEuler(0, this.player.yaw, 0);
+      // Spin the tyre in the direction the player is moving so it looks
+      // like it's being rolled, not floated.
+      const speed = this.player.velocity.length();
+      if (speed > 0.05) {
+        this.tyreVisualRollAngle += (speed / tyreRadius) * dt;
+      }
+      const yawQ = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.player.yaw);
+      const rollQ = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), this.tyreVisualRollAngle);
+      const combined = yawQ.multiply(rollQ);
+      this.tyre.body.quaternion.set(combined.x, combined.y, combined.z, combined.w);
     }
 
     if (this.tyreState === "loaded") {

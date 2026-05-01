@@ -8,9 +8,9 @@
 
 .hud-top {
   position: absolute;
-  top: calc(14px + var(--safe-area-top));
-  left: calc(14px + var(--safe-area-left));
-  right: calc(14px + var(--safe-area-right));
+  top: calc(10px + var(--safe-area-top));
+  left: calc(10px + var(--safe-area-left));
+  right: calc(10px + var(--safe-area-right));
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -21,29 +21,29 @@
 .hud-status {
   background: var(--ui-bg);
   border: 1px solid var(--ui-stroke);
-  border-radius: 14px;
-  padding: 8px 12px;
+  border-radius: 12px;
+  padding: 6px 10px;
   backdrop-filter: blur(10px);
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 600;
-  max-width: 60%;
+  max-width: 55%;
   line-height: 1.25;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
 }
 
 .hud-status .eyebrow {
-  font-size: 9px;
+  font-size: 8px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   opacity: 0.6;
 }
 
 .hud-pause {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
   background: var(--ui-bg);
   border: 1px solid var(--ui-stroke);
   display: flex;
@@ -53,28 +53,28 @@
 }
 
 .hud-pause svg {
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
 }
 
 .hud-meter {
   position: absolute;
-  top: calc(72px + var(--safe-area-top));
-  left: calc(14px + var(--safe-area-left));
-  width: min(220px, 50%);
+  top: calc(54px + var(--safe-area-top));
+  left: calc(10px + var(--safe-area-left));
+  width: min(180px, 42%);
   background: var(--ui-bg);
   border: 1px solid var(--ui-stroke);
-  border-radius: 14px;
-  padding: 8px 12px;
+  border-radius: 12px;
+  padding: 6px 10px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   pointer-events: none;
   backdrop-filter: blur(10px);
 }
 
 .hud-meter .label {
-  font-size: 9px;
+  font-size: 8px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   opacity: 0.6;
@@ -83,7 +83,7 @@
 }
 
 .hud-meter .bar {
-  height: 10px;
+  height: 8px;
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.45);
   overflow: hidden;
@@ -100,10 +100,10 @@
 
 .joystick {
   position: absolute;
-  bottom: calc(28px + var(--safe-area-bottom));
-  left: calc(28px + var(--safe-area-left));
-  width: 132px;
-  height: 132px;
+  bottom: calc(18px + var(--safe-area-bottom));
+  left: calc(18px + var(--safe-area-left));
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   background: rgba(20, 16, 11, 0.45);
   border: 1px solid var(--ui-stroke);
@@ -114,12 +114,12 @@
 
 .joystick-stick {
   position: absolute;
-  width: 64px;
-  height: 64px;
+  width: 46px;
+  height: 46px;
   left: 50%;
   top: 50%;
-  margin-left: -32px;
-  margin-top: -32px;
+  margin-left: -23px;
+  margin-top: -23px;
   border-radius: 50%;
   background: linear-gradient(160deg, #fff5dc 0%, color-mix(in oklab, var(--accent) 70%, #fff) 60%, var(--accent-2) 100%);
   box-shadow:
@@ -133,39 +133,39 @@
 
 .actions {
   position: absolute;
-  bottom: calc(28px + var(--safe-area-bottom));
-  right: calc(28px + var(--safe-area-right));
+  bottom: calc(18px + var(--safe-area-bottom));
+  right: calc(18px + var(--safe-area-right));
   display: flex;
-  flex-direction: column;
-  gap: 14px;
+  flex-direction: row;
+  gap: 10px;
   align-items: flex-end;
   pointer-events: auto;
 }
 
 .action-btn {
-  width: 92px;
-  height: 92px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 10px;
   color: #1b1308;
   background: linear-gradient(135deg, #fff5dc, var(--accent));
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
-  border: 3px solid color-mix(in oklab, var(--accent) 80%, #fff);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  border: 2px solid color-mix(in oklab, var(--accent) 80%, #fff);
   transition: transform 120ms ease;
   position: relative;
 }
 
 .action-btn .glyph {
-  font-size: 28px;
+  font-size: 20px;
   line-height: 1;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
 }
 
 .action-btn:active {

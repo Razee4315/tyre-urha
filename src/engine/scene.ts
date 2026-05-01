@@ -105,17 +105,4 @@ export function buildEnvironment(ctx: SceneCtx): void {
   );
   pathLine.position.set(-2.9, 0.055, -22);
   ctx.scene.add(pathLine);
-
-  // Welcome sign by spawn
-  const sign = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.9, 0.06), materials.wood);
-  sign.position.set(2.4, 1.2, 5.1);
-  sign.rotation.y = -Math.PI / 7;
-  sign.castShadow = true;
-  ctx.scene.add(sign);
-  for (const dx of [-0.65, 0.65]) {
-    const post = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 1.6, 9), materials.wood);
-    post.position.set(2.4 + dx, 0.5, 5.1);
-    post.castShadow = true;
-    ctx.scene.add(post);
-  }
 }

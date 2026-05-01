@@ -192,23 +192,31 @@ jobs:
         run: |
           VERSION=${{ needs.check-and-bump.outputs.version }}
 
+          # Slug derived from the productName in template.config.json so the
+          # release artifacts reflect the renamed app rather than the
+          # template's original "TauriAndroidTemplate" placeholder.
+          PRODUCT_NAME=$(jq -r '.productName' template.config.json)
+          SLUG=$(echo "$PRODUCT_NAME" \
+            | tr '[:upper:]' '[:lower:]' \
+            | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//')
+
           APK=$(find src-tauri/gen/android -name "*.apk" -type f | head -1)
           AAB=$(find src-tauri/gen/android -name "*.aab" -type f | head -1)
 
           if ! gh release view "v$VERSION" &>/dev/null; then
             echo "Creating release v$VERSION"
             gh release create "v$VERSION" \
-              --title "v$VERSION" \
+              --title "$PRODUCT_NAME v$VERSION" \
               --generate-notes \
               --target main
           fi
 
           if [ -n "$APK" ]; then
-            cp "$APK" "TauriAndroidTemplate_${VERSION}.apk"
-            gh release upload "v$VERSION" "TauriAndroidTemplate_${VERSION}.apk" --clobber
+            cp "$APK" "${SLUG}-${VERSION}.apk"
+            gh release upload "v$VERSION" "${SLUG}-${VERSION}.apk" --clobber
           fi
 
           if [ -n "$AAB" ]; then
-            cp "$AAB" "TauriAndroidTemplate_${VERSION}.aab"
-            gh release upload "v$VERSION" "TauriAndroidTemplate_${VERSION}.aab" --clobber
+            cp "$AAB" "${SLUG}-${VERSION}.aab"
+            gh release upload "v$VERSION" "${SLUG}-${VERSION}.aab" --clobber
           fi

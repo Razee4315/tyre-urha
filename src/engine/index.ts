@@ -15,10 +15,8 @@ import {
 } from "./roller";
 import { createTyre, tyreRadius } from "./tyre";
 import {
-  buildChimneySmoke,
   buildRollerSmoke,
   buildTowerConfetti,
-  type ChimneySmoke,
   type Confetti,
   type RollerSmoke,
 } from "./particles";
@@ -49,7 +47,6 @@ export class Game {
   private tyre!: { mesh: THREE.Group; body: CANNON.Body };
   private machine!: { rollerGroup: THREE.Group; flywheel: THREE.Mesh };
   private rollerSmoke!: RollerSmoke;
-  private chimneySmoke!: ChimneySmoke;
   private confetti!: Confetti;
   private towerBody!: CANNON.Body;
   private clock = new THREE.Clock();
@@ -169,8 +166,8 @@ export class Game {
     this.machine = buildRollerMachine(this.ctx);
     this.tyre = createTyre(this.ctx, tyreMaterial);
     this.rollerSmoke = buildRollerSmoke(this.scene, tyreRadius);
-    this.chimneySmoke = buildChimneySmoke(this.scene, target.chimneyTop);
     this.confetti = buildTowerConfetti(this.scene);
+    void target.chimneyTop; // unused now that the chimney smoke is gone
 
     this.tyre.body.addEventListener("collide", (event: { body: CANNON.Body }) => {
       if (event.body !== this.towerBody) return;
@@ -257,7 +254,6 @@ export class Game {
     this.resizeObserver?.disconnect();
     window.removeEventListener("resize", this.onResize);
     this.rollerSmoke.dispose();
-    this.chimneySmoke.dispose();
     this.confetti.dispose();
     disposeMaterials(this.ctx.materials);
     this.scene.traverse((obj) => {
@@ -287,7 +283,6 @@ export class Game {
     this.updateTyreRespawn(dt);
     this.animateMachine(dt);
     this.rollerSmoke.update(dt, this.rollerCharge, this.tyreState === "loaded", this.tyre.mesh);
-    this.chimneySmoke.update(dt);
     this.confetti.update(dt);
 
     if (this.engineHandle) {
